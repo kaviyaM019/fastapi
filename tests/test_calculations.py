@@ -1,9 +1,18 @@
-from app.calculations import add
+from app.calculations import add, subtract, multipy, divide
 
-def add(x, y):
-    return x + y
+  
 
 def test_add():
     print("testing add function")
-    sum = add(5,3)
-    assert sum == 8
+    
+    assert add(5, 3) == 8
+
+def test_subtract():
+    assert subtract(9, 4) == 5
+
+def test_multipy():
+    
+    assert multipy(4, 3) == 12
+
+def test_divide():
+    assert divide(20, 5) == 4

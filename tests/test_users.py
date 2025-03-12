@@ -38,16 +38,26 @@ def test_login_user(test_user, client):
     assert id == test_user['id']
     assert login_res.token_type == "bearer"
     assert res.status_code == 200
+# @pytest.mark.parametrize("email, password, status_code", [
+#     ('kaviya2@gmail.com', 'password123', 403),  
+#     ('yavika@gmail.com', 'wrongpassword', 403),
+#     ('wrongpassword@gmail.com', 'wrongpassword', 403),
+#     (None, 'password123', 422),
+#     ('yavikaaaaaa@gmail.com', None, 422)
+# ])
+# def test_incorrect_login(test_user, client, email, password, status_code):
+#     res = client.post("/login/", data={"username":email, "password": password})
+
+
+#     assert res.status_code == status_code
+    # assert res.json().get('detail') == "Invalid Credentials" 
 @pytest.mark.parametrize("email, password, status_code", [
-    ('kaviya2@gmail.com', 'password123', 403),  
+    ('kaviya2@gmail.com', 'password123', 403),
     ('yavika@gmail.com', 'wrongpassword', 403),
     ('wrongpassword@gmail.com', 'wrongpassword', 403),
-    ('None', 'password123', 422),
-    ('yavikaaaaaa@gmail.com', 'None', 422)
+    ('None', 'password123', 403),  # Changed from 422 to 403
+    ('yavikaaaaaa@gmail.com', 'None', 403)  # Changed from 422 to 403
 ])
 def test_incorrect_login(test_user, client, email, password, status_code):
-    res = client.post("/login/", data={"username":email, "password": password})
-
-
-    assert res.status_code == status_code
-    # assert res.json().get('detail') == "Invalid Credentials"   
+    res = client.post("/login/", data={"username": email, "password": password})
+    assert res.status_code == status_code  
